@@ -51,6 +51,9 @@ vector<Book*> Library::searchBooksByTitle(const string& title) {
             results.push_back(book.get());
         }
     }
+
+    trierLivres(results);
+
     return results;
 }
 
@@ -68,6 +71,9 @@ vector<Book*> Library::searchBooksByAuthor(const string& author) {
             results.push_back(book.get());
         }
     }
+
+    trierLivres(results);
+
     return results;
 }
 
@@ -152,11 +158,14 @@ void Library::displayAllBooks() {
         cout << "Aucun livre dans la bibliothèque.\n";
         return;
     }
+
+    auto livresTrier = getAllBooks();
+    trierLivres(livresTrier);
     
     cout << "\n=== TOUS LES LIVRES ===\n";
-    for (size_t i = 0; i < books.size(); ++i) {
+    for (size_t i = 0; i < livresTrier.size(); ++i) {
         cout << "\nLivre " << (i + 1) << " :\n";
-        cout << books[i]->toString() << "\n";
+        cout << livresTrier[i]->toString() << "\n";
         cout << "-------------------------\n";
     }
 }
@@ -169,6 +178,8 @@ void Library::displayAvailableBooks() {
         cout << "Aucun livre disponible pour emprunt.\n";
         return;
     }
+
+    trierLivres(available);
     
     cout << "\n=== LIVRES DISPONIBLES ===\n";
     for (size_t i = 0; i < available.size(); ++i) {
@@ -202,3 +213,16 @@ int Library::getAvailableBookCount() const {
         });
 }
 int Library::getCheckedOutBookCount() const { return getTotalBooks() - getAvailableBookCount(); }
+
+// Triage
+vector<Book*> Library::trierLivres(vector<Book*>& livres) {
+    sort(livres.begin(), livres.end(), [](Book* a, Book* b) {
+
+        if (a->getTitle() == b->getTitle())
+            return a->getAuthor() < b->getAuthor();
+
+        return a->getTitle() < b->getTitle();
+
+    });
+    return livres;
+}

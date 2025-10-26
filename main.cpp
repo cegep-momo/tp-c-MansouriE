@@ -89,7 +89,7 @@ int main() {
                 
                 Book* book = library.findBookByISBN(isbn);
                 if (!book) {
-                    cout << "Le livre avec l'isbn :"+isbn+" n'existe pas\n";
+                    cout << "Le livre avec l'isbn : "+isbn+" n'existe pas\n";
                     pauseForInput();
                     break;
                 }

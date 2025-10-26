@@ -46,6 +46,9 @@ public:
     int getTotalBooks() const;
     int getAvailableBookCount() const;
     int getCheckedOutBookCount() const;
+
+    // Triage
+    vector<Book*> trierLivres(vector<Book*>& livres);
 };
 
 #endif
