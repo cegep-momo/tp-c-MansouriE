@@ -49,6 +49,8 @@ public:
 
     // Triage
     vector<Book*> trierLivres(vector<Book*>& livres);
+    vector<Book*> trierLivresParAuteur(vector<Book*>& livres);
+
 };
 
 #endif

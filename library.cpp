@@ -72,7 +72,7 @@ vector<Book*> Library::searchBooksByAuthor(const string& author) {
         }
     }
 
-    trierLivres(results);
+    trierLivresParAuteur(results);
 
     return results;
 }
@@ -218,10 +218,24 @@ int Library::getCheckedOutBookCount() const { return getTotalBooks() - getAvaila
 vector<Book*> Library::trierLivres(vector<Book*>& livres) {
     sort(livres.begin(), livres.end(), [](Book* a, Book* b) {
 
-        if (a->getTitle() == b->getTitle())
+        if (a->getTitle() == b->getTitle()){
             return a->getAuthor() < b->getAuthor();
+        }
 
         return a->getTitle() < b->getTitle();
+
+    });
+    return livres;
+}
+
+vector<Book*> Library::trierLivresParAuteur(vector<Book*>& livres) {
+    sort(livres.begin(), livres.end(), [](Book* a, Book* b) {
+
+        if (a->getAuthor() == b->getAuthor()){
+            return a->getTitle() < b->getTitle();
+        }
+
+        return a->getAuthor() < b->getAuthor();
 
     });
     return livres;
