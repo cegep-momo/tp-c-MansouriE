@@ -5,15 +5,15 @@
 using namespace std;
 
 // Default constructor
-Book::Book() : titre(""), author(""), isbn(""), isAvailable(true), borrowerName("") {}
+Book::Book() : title(""), author(""), isbn(""), isAvailable(true), borrowerName("") {}
 
 // Parameterized constructor
-Book::Book(const string& titre, const string& author, const string& isbn) 
-    : titre(titre), author(author), isbn(isbn) {}
+Book::Book(const string& title, const string& author, const string& isbn) 
+    : title(title), author(author), isbn(isbn) {}
 
 
 // Getters
-string Book::getTitre() const { return titre; }
+string Book::getTitle() const { return title; }
 string Book::getAuthor() const { return author; }
 string Book::getISBN() const { return isbn; }
 bool Book::getAvailability() const { return isAvailable; }
@@ -21,7 +21,7 @@ string Book::getBorrowerName() const { return borrowerName; }
 
 
 // Setters
-void Book::setTitle(const string& titre) { this->titre = titre; }
+void Book::setTitle(const string& title) { this->title = title; }
 void Book::setAuthor(const string& author) { this->author = author; }
 void Book::setISBN(const string& isbn) { this->isbn = isbn; }
 void Book::setAvailability(const bool available) { this->isAvailable = available; }
@@ -39,13 +39,28 @@ void Book::returnBook(){
 }
 
 string Book::toString() const {
-
+    string result = "Tire : "+title+"\nAuthor: "+author+"\nISBN: "+isbn + "\nDisponible: " +string(isAvailable ? "Oui" : "Non");
+    if (!isAvailable && !borrowerName.empty()) {
+        result += "\nEmprunteur: "+borrowerName;
+    }
+    return result;
 }
 
 string Book::toFileFormat() const {
-
+    string result = title + "|"+author+"|"+isbn+"|"+(isAvailable ? "1":"0")+"|"+borrowerName;
+    return result;
 }
 
-void Book::fromFileFormat(const string& line) {
+void Book::fromFileFormat(const string& line) { 
+    stringstream ss(line);
 
+    getline(ss, title, '|');
+    getline(ss, author, '|');
+    getline(ss, isbn, '|');
+
+    string cAvailable;
+    getline(ss, cAvailable, '|');
+    getline(ss, borrowerName, '|');
+
+    isAvailable = (cAvailable == "1");
 }
