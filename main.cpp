@@ -87,11 +87,26 @@ int main() {
             case 2: { // Remove Book
                 string isbn = getInput("Entrez l'ISBN du livre à supprimer : ");
                 
-                if (library.removeBook(isbn)) {
-                    cout << "Livre supprimé avec succès !\n";
-                } else {
-                    cout << "Livre non trouvé.\n";
+                Book* book = library.findBookByISBN(isbn);
+                if (!book) {
+                    cout << "Le livre avec l'isbn :"+isbn+" n'existe pas\n";
+                    pauseForInput();
+                    break;
                 }
+                
+                cout << "\nÊtes-vous sûr de vouloir supprimer ce livre:\n" << book->toString() << "\n";
+                string confirmation = getInput("(oui/non) : ");
+                
+                if (confirmation == "oui" || confirmation == "Oui" || confirmation == "OUI") {
+                    if (library.removeBook(isbn)) {
+                        cout << "Livre supprimé avec succès !\n";
+                    } else {
+                        cout << "Livre non trouvé.\n";
+                    }
+                } else {
+                    cout << "Suppression annulée.\n";
+                }
+
                 pauseForInput();
                 break;
             }
