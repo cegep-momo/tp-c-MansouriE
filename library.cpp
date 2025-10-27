@@ -72,8 +72,6 @@ vector<Book*> Library::searchBooksByAuthor(const string& author) {
         }
     }
 
-    trierLivresParAuteur(results);
-
     return results;
 }
 
@@ -158,11 +156,42 @@ void Library::displayAllBooks() {
         cout << "Aucun livre dans la bibliothèque.\n";
         return;
     }
+    
+    cout << "\n=== TOUS LES LIVRES ===\n";
+    for (size_t i = 0; i < books.size(); ++i) {
+        cout << "\nLivre " << (i + 1) << " :\n";
+        cout << books[i]->toString() << "\n";
+        cout << "-------------------------\n";
+    }
+}
+
+void Library::displayAllBooksTrier() {
+    if (books.empty()) {
+        cout << "Aucun livre dans la bibliothèque.\n";
+        return;
+    }
 
     auto livresTrier = getAllBooks();
     trierLivres(livresTrier);
     
-    cout << "\n=== TOUS LES LIVRES ===\n";
+    cout << "\n=== TOUS LES LIVRES TRIÉ PAR TITRE ===\n";
+    for (size_t i = 0; i < livresTrier.size(); ++i) {
+        cout << "\nLivre " << (i + 1) << " :\n";
+        cout << livresTrier[i]->toString() << "\n";
+        cout << "-------------------------\n";
+    }
+}
+
+void Library::displayAllBooksTrierAuteur() {
+    if (books.empty()) {
+        cout << "Aucun livre dans la bibliothèque.\n";
+        return;
+    }
+
+    auto livresTrier = getAllBooks();
+    trierLivresParAuteur(livresTrier);
+    
+    cout << "\n=== TOUS LES LIVRES TRIÉ PAR AUTEUR ===\n";
     for (size_t i = 0; i < livresTrier.size(); ++i) {
         cout << "\nLivre " << (i + 1) << " :\n";
         cout << livresTrier[i]->toString() << "\n";
@@ -178,8 +207,6 @@ void Library::displayAvailableBooks() {
         cout << "Aucun livre disponible pour emprunt.\n";
         return;
     }
-
-    trierLivres(available);
     
     cout << "\n=== LIVRES DISPONIBLES ===\n";
     for (size_t i = 0; i < available.size(); ++i) {

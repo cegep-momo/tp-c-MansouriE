@@ -32,6 +32,7 @@ void displayMenu() {
     cout << "11. Statistiques de la Bibliothèque\n";
     cout << "12. Sauvegarder les Données\n";
     cout << "13. Créer une Sauvegarde\n";
+    cout << "14. Triage des Livres\n";
     cout << "0.  Quitter\n";
     cout << "======================================================\n";
     cout << "Entrez votre choix : ";
@@ -224,6 +225,23 @@ int main() {
             
             case 13: { // Create Backup
                 fileManager.createBackup();
+                pauseForInput();
+                break;
+            }
+
+            case 14: { // Triage Par Titre
+                cout << "\n=== TRIAGE DES LIVRES ===\n";
+                cout << "1.  Par Titre\n";
+                cout << "2.  Par Auteur\n";
+                string choix = getInput("Entrez votre choix : ");
+                
+                if (choix == "1"){
+                    library.displayAllBooksTrier();
+                } else if (choix == "2"){
+                    library.displayAllBooksTrierAuteur();
+                }
+
+                
                 pauseForInput();
                 break;
             }

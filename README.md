@@ -24,4 +24,3 @@ Sources :
 2. https://www.geeksforgeeks.org/cpp/stringstream-c-applications/
 
 Question 2 : Options de développement possible
-Si Alexandrie pense agrandir sa bibliothèque la première solution plus adaptée pour la gestion qui me vient en tête est d'avoir une base de donnée sur le cloud. Si la bibliothèque pourrait monter jusquà des millions de livres c'est la meilleur chose à faire pour la gestion à mon avis. 
