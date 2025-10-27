@@ -4,6 +4,7 @@
 
 #include "library.h"
 #include "filemanager.h"
+#include "logs.h"
 
 using namespace std;
 
@@ -48,6 +49,7 @@ string getInput(const string& prompt) {
 int main() {
     Library library;
     FileManager fileManager;
+    Logs logs;
     
     // Load existing data
     cout << "Chargement des données de la bibliothèque...\n";
@@ -184,6 +186,7 @@ int main() {
                 
                 if (library.checkOutBook(isbn, userId)) {
                     cout << "Livre emprunté avec succès !\n";
+                    logs.logger("User: "+userId+" emprunte le livre isbn : "+isbn);
                 } else {
                     cout << "Erreur : Impossible d'emprunter le livre. Vérifiez l'ISBN, l'ID utilisateur et la disponibilité du livre.\n";
                 }
@@ -196,6 +199,7 @@ int main() {
                 
                 if (library.returnBook(isbn)) {
                     cout << "Livre retourné avec succès !\n";
+                    logs.logger("Le livre isbn : "+isbn+" est retourné");
                 } else {
                     cout << "Erreur : Impossible de retourner le livre. Vérifiez l'ISBN et que le livre est bien emprunté.\n";
                 }
